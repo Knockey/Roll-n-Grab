@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerRollMovement))]
 [RequireComponent(typeof(PlayerJump))]
@@ -8,6 +9,9 @@ public class PlayerInput : MonoBehaviour
     private PlayerJump _jump;
     private float _horizontalInput;
     private float _verticalInput;
+
+    public event Action PlayerRolled;
+    public event Action PlayerStoped;
 
     private void Awake()
     {
@@ -23,6 +27,16 @@ public class PlayerInput : MonoBehaviour
         _movement.Move(new Vector3(_verticalInput, 0, -_horizontalInput));
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             _jump.Jump(new Vector3(_verticalInput, 0, -_horizontalInput));
+        }
+
+        if (_horizontalInput != 0 || _verticalInput != 0)
+        {
+            PlayerRolled?.Invoke();
+            return;
+        }
+
+        PlayerStoped?.Invoke();
     }
 }
