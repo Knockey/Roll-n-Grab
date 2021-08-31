@@ -1,5 +1,8 @@
 ﻿public static class AxisTyped
 {
-    public static string Horizontal = "Horizontal";
-    public static string Vertical = "Vertical";
+    private static string _horrizontal = "Horizontal";
+    private static string _vertical = "Vertical";
+
+    public static string Horizontal => _horrizontal;
+    public static string Vertical => _vertical;
 }
