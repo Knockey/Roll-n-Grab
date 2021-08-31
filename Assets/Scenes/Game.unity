@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a6f2c4a48dc3244b2994780fa09fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deathHeight: -5
+  _deathHeight: -3
 --- !u!4 &1325725106
 Transform:
   m_ObjectHideFlags: 0
@@ -774,6 +774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _length: 7
   _duration: 1
+  _minGroundNormal: 0.8
 --- !u!114 &1325725111
 MonoBehaviour:
   m_ObjectHideFlags: 0

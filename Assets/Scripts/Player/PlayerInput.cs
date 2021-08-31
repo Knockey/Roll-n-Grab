@@ -28,7 +28,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _jump.Jump(new Vector3(_verticalInput, 0, -_horizontalInput));
+            _jump.TryJump(new Vector3(_verticalInput, 0, -_horizontalInput));
         }
 
         if (_horizontalInput != 0 || _verticalInput != 0)
