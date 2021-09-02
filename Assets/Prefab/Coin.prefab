@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layer: 1
   _spawnChance: 1
+  _objectType: 2
 --- !u!114 &3108743644986359744
 MonoBehaviour:
   m_ObjectHideFlags: 0

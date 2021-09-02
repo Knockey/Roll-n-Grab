@@ -10,14 +10,28 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float _frontViewDistance;
     [SerializeField] private int _backwardViewDistance;
     [SerializeField] private float _cellSize;
+    [SerializeField] private PlayerScore _picker;
 
     private HashSet<Vector3Int> _cellMatrix = new HashSet<Vector3Int>();
+    private HashSet<GridObject> _objectsInCells = new HashSet<GridObject>();
+
+    private void OnEnable()
+    {
+        _picker.ObjectPicked += OnObjectPicked;
+    }
+
+    private void OnDisable()
+    {
+        _picker.ObjectPicked -= OnObjectPicked;
+    }
 
     private void Update()
     {
         var currentCenter = _player.position;
         currentCenter.z = 0;
         FillRadius(currentCenter, _backwardViewDistance, _frontViewDistance);
+
+        TryDisableObjectsBehindPlayer();
     }
 
     private void FillRadius(Vector3 center, float backwardDistance, float forwardDistance)
@@ -52,7 +66,28 @@ public class LevelGenerator : MonoBehaviour
 
         var position = GridToWorldPosition(gridPosition);
 
-        Instantiate(template, position, Quaternion.identity, transform);
+        InstantiateOnLayer(template, position);
+    }
+
+    private void InstantiateOnLayer(GridObject template, Vector3 position)
+    {
+        var objectToInstantiate = TryFindExistObject(template);
+
+        if (objectToInstantiate != null)
+        {
+            objectToInstantiate.transform.position = position;
+            objectToInstantiate.gameObject.SetActive(true);
+
+            return;
+        }
+
+        var newObject = Instantiate(template, position, Quaternion.identity, transform);
+        _objectsInCells.Add(newObject);
+    }
+
+    private GridObject TryFindExistObject(GridObject template)
+    {
+        return _objectsInCells.FirstOrDefault(obj => obj.ObjectType == template.ObjectType && obj.gameObject.activeSelf == false);
     }
 
     private GridObject GetRandomTemplate(GridLayer layer)
@@ -80,5 +115,21 @@ public class LevelGenerator : MonoBehaviour
             (int)(worldPosition.x / _cellSize),
             (int)(worldPosition.y / _cellSize),
             (int)(worldPosition.z / _cellSize));
+    }
+
+    private void TryDisableObjectsBehindPlayer()
+    {
+        foreach (var gridObject in _objectsInCells)
+        {
+            if (_player.position.x - gridObject.gameObject.transform.position.x > _backwardViewDistance)
+            {
+                gridObject.gameObject.SetActive(false);
+            }
+        } 
+    }
+
+    private void OnObjectPicked(GridObject gridObject)
+    {
+        _objectsInCells.Remove(gridObject);
     }
 }
