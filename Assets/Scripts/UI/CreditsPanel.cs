@@ -7,7 +7,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class CreditsPanel : MonoBehaviour
 {
-    [SerializeField] private Transform _credits;
+    [SerializeField] private RectTransform _credits;
+    [SerializeField] private float _initialYCreditsPosition;
+    [SerializeField] private float _finalYCreditsPosition;
     [SerializeField] private float _creditsAnimationTime;
     [SerializeField] private float _fadeValue;
     [SerializeField] private float _fadeTime;
@@ -22,6 +24,8 @@ public class CreditsPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        _credits.position = new Vector3(_credits.position.x, _initialYCreditsPosition, _credits.position.z);
+
         _fadeCoroutine = DoFade(_fadeValue, MoveCredits);
         StartCoroutine(_fadeCoroutine);
     }
@@ -36,15 +40,11 @@ public class CreditsPanel : MonoBehaviour
 
     private IEnumerator MoveCredits()
     {
-        var startPosition = _credits.position;
-        var endPosition = _credits.position;
-        endPosition.y = 750f;
+        var finalCreditsPosition = new Vector3(_credits.position.x, _finalYCreditsPosition, _credits.position.z);
 
-        _credits.DOMove(endPosition, _creditsAnimationTime);
+        _credits.DOMove(finalCreditsPosition, _creditsAnimationTime);
 
         yield return new WaitForSeconds(_creditsAnimationTime);
-
-        _credits.position = startPosition;
 
         if (_fadeCoroutine != null)
             StopCoroutine(_fadeCoroutine);

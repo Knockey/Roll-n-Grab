@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float _cellSize;
     [SerializeField] private PlayerScore _picker;
 
+    private Vector3 _spawnCenter;
     private HashSet<Vector3Int> _cellMatrix = new HashSet<Vector3Int>();
     private HashSet<GridObject> _objectsInCells = new HashSet<GridObject>();
 
@@ -25,13 +26,26 @@ public class LevelGenerator : MonoBehaviour
         _picker.ObjectPicked -= OnObjectPicked;
     }
 
+    private void Awake()
+    {
+        UpdateSpawnCenter();
+    }
+
     private void Update()
     {
-        var currentCenter = _player.position;
-        currentCenter.z = 0;
-        FillRadius(currentCenter, _backwardViewDistance, _frontViewDistance);
+        UpdateSpawnCenter();
+
+        FillRadius(_spawnCenter, _backwardViewDistance, _frontViewDistance);
 
         TryDisableObjectsBehindPlayer();
+    }
+
+    private void UpdateSpawnCenter()
+    {
+        if (_player.position.x > _spawnCenter.x)
+            _spawnCenter = _player.position;
+
+        _spawnCenter.z = 0;
     }
 
     private void FillRadius(Vector3 center, float backwardDistance, float forwardDistance)

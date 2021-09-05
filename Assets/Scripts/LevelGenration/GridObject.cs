@@ -1,12 +1,5 @@
 ﻿using UnityEngine;
 
-public enum GridObjectType
-{
-    Ground,
-    Obstacle,
-    Pickable
-}
-
 public class GridObject : MonoBehaviour 
 {
     [SerializeField] private GridLayer _layer;

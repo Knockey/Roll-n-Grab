@@ -20,7 +20,7 @@ public class PlayerAnimations : MonoBehaviour
     private void OnDisable()
     {
         _player.PlayerRolled -= OnPlayerRolled;
-        _player.PlayerStoped -= OnPlayerStoped;        
+        _player.PlayerStoped -= OnPlayerStoped;
     }
 
     private void OnPlayerRolled()

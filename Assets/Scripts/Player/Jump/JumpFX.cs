@@ -8,12 +8,10 @@ public class JumpFX : MonoBehaviour
     [SerializeField] private LayerMask _jumpLayerMask;
 
     private ProgrammableMovementAnimation _playtime;
-    private SphereCollider _collider;
 
     private void Awake()
     {
         _playtime = new ProgrammableMovementAnimation(this);
-        _collider = GetComponent<SphereCollider>();
     }
 
     public ProgrammableMovementAnimation PlayAnimations(Transform jumper, float duration)
@@ -22,13 +20,6 @@ public class JumpFX : MonoBehaviour
         {
             Vector3 position = Vector3.Scale(new Vector3(0, _height * _yAnimation.Evaluate(progress), 0), jumper.up);
 
-            /*if (Physics.SphereCast(transform.position, _collider.radius + _sphereCastOffset, transform.up * -1f, out RaycastHit hit, _jumpLayerMask))
-            {
-                Debug.Log("А всее");
-                position.y = hit.transform.position.y;
-                return new TransformChanges(position);
-            }
-            */
             return new TransformChanges(position);
         });
 

@@ -156,9 +156,10 @@ MonoBehaviour:
   - {fileID: 2516993698599682965, guid: 19d44ba0fef9ef84eabc9a45adf8d4f6, type: 3}
   _player: {fileID: 1325725106}
   _platformWidth: 4
-  _frontViewDistance: 100
+  _frontViewDistance: 50
   _backwardViewDistance: 5
   _cellSize: 1
+  _picker: {fileID: 1325725112}
 --- !u!4 &13927652
 Transform:
   m_ObjectHideFlags: 0
@@ -915,7 +916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0428025, y: 0.8864709}
   m_AnchorMax: {x: 0.35472324, y: 0.972469}
-  m_AnchoredPosition: {x: -127.49988, y: 33.00003}
+  m_AnchoredPosition: {x: -127.5, y: 33}
   m_SizeDelta: {x: -243, y: -76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1624712066

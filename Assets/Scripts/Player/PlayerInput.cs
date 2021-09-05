@@ -21,6 +21,11 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        TryGetInputs();
+    }
+
+    private void TryGetInputs()
+    {
         _horizontalInput = Input.GetAxis(AxisTyped.Horizontal);
         _verticalInput = Input.GetAxis(AxisTyped.Vertical);
 
