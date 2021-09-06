@@ -5,30 +5,32 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private GridObject[] _templates;
-    [SerializeField] private Transform _player;
+    [SerializeField] private PlayerScore _player;
     [SerializeField] private int _platformWidth;
     [SerializeField] private float _frontViewDistance;
     [SerializeField] private int _backwardViewDistance;
     [SerializeField] private float _cellSize;
-    [SerializeField] private PlayerScore _picker;
 
     private Vector3 _spawnCenter;
+    private Transform _playerPosition;
     private HashSet<Vector3Int> _cellMatrix = new HashSet<Vector3Int>();
     private HashSet<GridObject> _objectsInCells = new HashSet<GridObject>();
 
+    private void Awake()
+    {
+        _playerPosition = _player.gameObject.transform;
+
+        UpdateSpawnCenter();
+    }
+
     private void OnEnable()
     {
-        _picker.ObjectPicked += OnObjectPicked;
+        _player.ObjectPicked += OnObjectPicked;
     }
 
     private void OnDisable()
     {
-        _picker.ObjectPicked -= OnObjectPicked;
-    }
-
-    private void Awake()
-    {
-        UpdateSpawnCenter();
+        _player.ObjectPicked -= OnObjectPicked;
     }
 
     private void Update()
@@ -42,8 +44,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void UpdateSpawnCenter()
     {
-        if (_player.position.x > _spawnCenter.x)
-            _spawnCenter = _player.position;
+        if (_playerPosition.position.x > _spawnCenter.x)
+            _spawnCenter = _playerPosition.position;
 
         _spawnCenter.z = 0;
     }
@@ -135,7 +137,7 @@ public class LevelGenerator : MonoBehaviour
     {
         foreach (var gridObject in _objectsInCells)
         {
-            if (_player.position.x - gridObject.gameObject.transform.position.x > _backwardViewDistance)
+            if (_playerPosition.position.x - gridObject.gameObject.transform.position.x > _backwardViewDistance)
             {
                 gridObject.gameObject.SetActive(false);
             }

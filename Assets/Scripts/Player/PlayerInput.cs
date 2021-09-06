@@ -36,6 +36,11 @@ public class PlayerInput : MonoBehaviour
             _jump.TryJump(new Vector3(_verticalInput, 0, -_horizontalInput));
         }
 
+        CheckPlayerMoved();
+    }
+
+    private void CheckPlayerMoved()
+    {
         if (_horizontalInput != 0 || _verticalInput != 0)
         {
             PlayerRolled?.Invoke();

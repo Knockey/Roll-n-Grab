@@ -6,6 +6,7 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private PlayerInput _player;
 
     private Animator _animator;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
