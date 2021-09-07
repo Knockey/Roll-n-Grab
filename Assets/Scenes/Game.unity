@@ -154,12 +154,11 @@ MonoBehaviour:
   - {fileID: 950169269773205697, guid: 409da9ee22f7f6748955ec5592f1ef58, type: 3}
   - {fileID: -2642218508887740218, guid: e9dfd1fb1e0e87148ba3b31598e7ee72, type: 3}
   - {fileID: 2516993698599682965, guid: 19d44ba0fef9ef84eabc9a45adf8d4f6, type: 3}
-  _player: {fileID: 1325725106}
+  _player: {fileID: 1325725112}
   _platformWidth: 4
   _frontViewDistance: 50
   _backwardViewDistance: 5
   _cellSize: 1
-  _picker: {fileID: 1325725112}
 --- !u!4 &13927652
 Transform:
   m_ObjectHideFlags: 0
